@@ -120,7 +120,7 @@ Searches for runs in an experiment.
 - `filter::String`: filter as defined in [MLFlow documentation](https://mlflow.org/docs/latest/rest-api.html#search-runs)
 - `filter_params::AbstractDict{K,V}`: if provided, `filter` is automatically generated based on `filter_params` using [`generatefilterfromparams`](@ref). One can only provide either `filter` or `filter_params`, but not both.
 - `run_view_type::String`: one of `ACTIVE_ONLY`, `DELETED_ONLY`, or `ALL`.
-- `max_results::Integer`: 50,000 by default.
+- `max_results::Integer`: 25,000 by default -- this is per page, not the total number of results.
 - `order_by::String`: as defined in [MLFlow documentation](https://mlflow.org/docs/latest/rest-api.html#search-runs)
 - `page_token::String`: paging functionality, handled automatically. Not meant to be passed by the user.
 
@@ -132,7 +132,7 @@ function searchruns(mlf::MLFlow, experiment_ids::AbstractVector{<:Integer};
                     filter::String="",
                     filter_params::AbstractDict{K,V}=Dict{}(),
                     run_view_type::String="ACTIVE_ONLY",
-                    max_results::Int64=50000,
+                    max_results::Int64=25000,
                     order_by::AbstractVector{<:String}=["attribute.end_time"],
                     page_token::String=""
                     ) where {K,V}
